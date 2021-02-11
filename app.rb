@@ -14,7 +14,12 @@ helpers do
 end
 
 get '/' do
-    erb :index
+    if current_user.nil?
+        @tasks = Task.none
+    else
+        @tasks = current_user.tasks
+    end
+    erb :index #これだとログインしてなくても作れてしまうから問題
 end
 
 get '/signup' do
@@ -47,5 +52,21 @@ end
 
 get '/signout' do
     session[:user] =nil
+    redirect '/'
+end
+
+get '/tasks/new' do
+    erb :new
+end
+
+before '/tasks' do
+    if current_user.nil?
+        redirect '/'
+    end#ログインしてない時にtodoを押すとtopページに戻るように
+end
+
+post '/tasks' do
+    current_user.tasks.create(title: params[:title])
+    #Userクラスのインスタンス.tasks.create()であるユーザーの所属するtodoリストを作れる
     redirect '/'
 end
