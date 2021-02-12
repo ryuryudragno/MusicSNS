@@ -20,6 +20,10 @@ class Task < ActiveRecord::Base#大文字の単数形(History)で定義
     validates :title,
         presence: true#空欄はだめ
     belongs_to :user#1つタスクが1人のユーザーに所属する
+    
+    def remained_days
+        return (due_date - Date.today).to_i
+    end
     # has_secure_password
     # validates :name,
     #     presence: true,#空欄はだめ

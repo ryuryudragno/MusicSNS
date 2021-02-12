@@ -19,7 +19,7 @@ get '/' do
     else
         @tasks = current_user.tasks
     end
-    erb :index #これだとログインしてなくても作れてしまうから問題
+    erb :index#これだとログインしてなくても作れてしまうから問題
 end
 
 get '/signup' do
@@ -66,7 +66,31 @@ before '/tasks' do
 end
 
 post '/tasks' do
-    current_user.tasks.create(title: params[:title])
+    date = params[:due_date].split('-')#String型のものを-できって配列にする
+    if Date.valid_date?(date[0].to_i,date[1].to_i,date[2].to_i)
+        current_user.tasks.create(
+            title: params[:title],
+            due_date: Date.parse(params[:due_date])
+        )
+        redirect '/'
+    #Userクラスのインスタンス.tasks.create()であるユーザーの所属するtodoリストを作れる
+    else
+        redirect '/tasks/new'
+    end
+end
+
+post '/tasks/:id/done' do
+    task = Task.find(params[:id])
+    task.completed = true
+    task.save
+    #Userクラスのインスタンス.tasks.create()であるユーザーの所属するtodoリストを作れる
+    redirect '/'
+end
+
+get '/tasks/:id/star' do
+    task = Task.find(params[:id])
+    task.star = !task.star
+    task.save
     #Userクラスのインスタンス.tasks.create()であるユーザーの所属するtodoリストを作れる
     redirect '/'
 end
