@@ -5,21 +5,20 @@
 	<title>タイトル</title>
 </head>
 <body>
-	<div>
-		<div>
-			<div>
+	<div class = "container">
+		<div class = "row">
+			<div class = "col-lg-2">
 				<div>
-					<ul>
-						<li><a href = "/">トップ</a></li>
-						<li><a href = "/tasks/done">done</a></li>
-						<li><a href = "/tasks/over">締め切り過ぎた</a></li>
+					<ul class = "list-group">
+						<%= erb :_count_due, locals: {title: "トップ", url: "/", tasks: Task.all} %>
+						<li class = "list-group-item"><a href = "/tasks/done">done</a></li>
+						<%= erb :_count_due, locals: {title: "締め切り過ぎた", url: "/tasks/over", tasks: Task.all} %>
 						<% @lists.each do |list| %>
-							<li><a href = "/?list=<%= list.id %>"><%= list.name %></a></li>
+							<%= erb :_count_due,locals: {title: list.name, url: "/?list=#{list.id}", tasks: list.tasks} %>
 			        	<% end %>
-						
 					</ul>
-				</div>
-				<table>
+				</div class = "col-lg-10">
+				<table class = "table-striped table-bordered table-hover">
 					<thead>
 						<tr>
 							<th>タイトル</th>
