@@ -4,6 +4,12 @@
             <div>
                 <input type = "text" name = "title" placeholder = "タイトル"><br>
                 <input type = "text" name = "due_date" placeholder = "締め切り"><br>
+                リスト：
+                <select name = "list">
+                    <% List.all.each do |list| %>
+                        <option value = "<%= list.id %>"><%= list.name %></option>
+                    <% end %>
+                </select>
             </div>
             <div>
                 <input type = "submit" name = "登録" >

@@ -8,12 +8,25 @@
 	<div>
 		<div>
 			<div>
+				<div>
+					<ul>
+						<li><a href = "/">トップ</a></li>
+						<li><a href = "/tasks/done">done</a></li>
+						<li><a href = "/tasks/over">締め切り過ぎた</a></li>
+						<% @lists.each do |list| %>
+							<li><a href = "/?list=<%= list.id %>"><%= list.name %></a></li>
+			        	<% end %>
+						
+					</ul>
+				</div>
 				<table>
 					<thead>
 						<tr>
 							<th>タイトル</th>
 							<th>締め切り</th>
 							<th>終わった？</th>
+							<th>削除</th>
+							<th>編集</th>
 							<th>備考</th>
 							<th>重要？</th>
 						</tr>
@@ -38,6 +51,18 @@
 								<% else %>
 									Done!
 								<% end %>
+							</td>
+							
+							<%# 削除%>
+							<td>
+								<form action = "/tasks/<%= task.id %>/delete" method = "post">
+							        <input type = "submit" value = "削除" >
+							    </form>
+							</td>
+							
+							<%# 編集%>
+							<td>
+								<a href = "/tasks/<%= task.id %>/edit">編集</a>
 							</td>
 							
 							<%# 締め切り%>
