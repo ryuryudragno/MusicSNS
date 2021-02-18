@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 	<meta charset="UTF-8">
-	<title>to doアプリ</title>
+	<title>Music SNS</title>
 	<!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <!-- Option 1: Bootstrap Bundle with Popper -->
@@ -12,12 +12,16 @@
     <nav class = "navbar navbar-default">
         <div class = "container">
             <div class = "navbar-header">
-                <a href = "/" class = "navbar-brand">todoアプリ</a>
+                <a href = "/" class = "navbar-brand">MusicSNS</a>
             </div>
             <ul class = "nav navbar-nav navbar-right">
             <% if !current_user.nil? %>
                 <li>こんにちは,<%= current_user.name %>さん</li>
+                <% unless current_user.img.empty? %>
+                    <a><img src = "<%= current_user.img %>"></a>
+                <% end %>
                 <li><a href = "/signout">サインアウト</a></li>
+                <p><%= current_user.img %></p>
                 
             <% else %>
                 <li>新規ユーザーですか？</li>

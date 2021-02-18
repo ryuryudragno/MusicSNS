@@ -10,29 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_12_072758) do
+ActiveRecord::Schema.define(version: 2021_02_15_070715) do
 
-  create_table "lists", force: :cascade do |t|
-    t.string "name"
+  create_table "likes", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "tasks", force: :cascade do |t|
+  create_table "posts", force: :cascade do |t|
     t.integer "user_id"
-    t.string "title"
+    t.string "img"
+    t.string "artist"
+    t.string "music"
+    t.string "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "completed"
-    t.date "due_date"
-    t.boolean "star"
-    t.integer "list_id", default: 1
-    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "password_digest"
+    t.text "img"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
