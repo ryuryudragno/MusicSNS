@@ -90,8 +90,8 @@ post '/search' do #検索語からAPIでJSONを取得し必要なデータを格
     redirect '/search'
 end
 
-get '/userInfo' do #ユーザー情報のページに飛ばす
-    erb :userInfo
+get '/home' do #ユーザー情報のページに飛ばす
+    erb :home
 end
 
 
@@ -100,7 +100,7 @@ post '/new' do  #コメントを取得し投稿
     task.completed = true
     task.save
     #Userクラスのインスタンス.tasks.create()であるユーザーの所属するtodoリストを作れる
-    redirect '/userInfo'
+    redirect '/home'
 end
 
 get '/:post_id/edit' do #編集ページ機能
@@ -115,12 +115,12 @@ post '/:post_id/edit' do  #編集された値を受け取る機能
     task = Task.find(params[:id])
     task.destroy
     #Userクラスのインスタンス.tasks.create()であるユーザーの所属するtodoリストを作れる
-    redirect '/userInfo'
+    redirect '/home'
 end
 
 post '/:post_id/delete'  do #投稿削除機能
     @task = Task.find(params[:id])
-    redirect '/userInfo'
+    redirect '/home'
 end
 
 
@@ -137,6 +137,6 @@ post '/:post_id/like' do#いいね機能
         redirect '/'
     #Userクラスのインスタンス.tasks.create()であるユーザーの所属するtodoリストを作れる
     else
-        redirect '/userInfo'
+        redirect '/home'
     end
 end
