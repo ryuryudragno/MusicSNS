@@ -64,10 +64,6 @@ post '/signup' do
     redirect '/'
 end
 
-get '/signin' do #サインインの情報入力ページに飛ばす
-    erb :sign_in
-end
-
 post '/signin' do #サインインのデータを受け取りパスワード正しいか認証
     user = User.find_by(name: params[:name])
     if user && user.authenticate(params[:password])
@@ -81,13 +77,25 @@ get '/signout' do #サインアウト
     redirect '/'
 end
 
-get '/search' do #検索フォームと検索結果が表示されるページ
-    erb :search
-end
+# get '/search' do #検索フォームと検索結果が表示されるページ
+#     erb :search
+# end
 
-post '/search' do #検索語からAPIでJSONを取得し必要なデータを格納する
+get '/search' do #検索語からAPIでJSONを取得し必要なデータを格納する
+    searchTerm = params[:searchTerm]
+    @limits = 10
+    uri = URI("https://itunes.apple.com/search")
+    uri.query = URI.encode_www_form({
+        term: searchTerm,#検索語句
+        country: "jp",
+        limit: @limits
+    })#クエリ指定
+    # @uri = uri #日本語だと検索後は文字化けするが検索結果はちゃんと返ってくる
+    res = Net::HTTP.get_response(uri)#上のuriから情報を手に入れる
+    json = JSON.parse(res.body)#JSONの型にする,ここまでok
+    @searchResults = json["results"]#そこから情報を取り出す
     
-    redirect '/search'
+    erb :search
 end
 
 get '/home' do #ユーザー情報のページに飛ばす

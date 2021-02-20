@@ -1,31 +1,34 @@
-<section class="center-vertical">
+<section class="center-vertical mt-2">
 	<h1>検索フォーム</h1>
-	<form>
-		<input type="" name="" placeholder="アーティスト名">
-		<input type="" value="検索">
+	<form action = "search" method = "get">
+		<input type="text" name="searchTerm" id = "searchTerm" placeholder="アーティスト名">
+		<input type="submit" value="検索">
 	</form>
-	<h2>検索結果</h2>
-
+	<h2 class = "mt-4">検索結果</h2>
+		
+		<% if @searchResults===[] %>
+		<%# TODO: 検索結果によって分岐 %>
+		<p>検索結果がありません</p>
+		
+		<% else %>
+		
 		<div class="center-hrizontal">
+			<%#<%= @searchResults[2]%>
+			<% for num in 0..@limits-1 do %>
 				<div class="post center-vertical">
-					<img src="">
-					<p>artistName表示</p>
-					<p>collectionName表示</p>
-					<p>trackName表示</p>
-					<a href="#">サンプル</a>
+					<img src="<%= @searchResults[num]["artworkUrl100"] %>">
+					<p><%= @searchResults[num]["artistName"] %></p>
+					<p><%= @searchResults[num]["collectionName"] %></p>
+					<p><%= @searchResults[num]["trackName"] %></p>
+					<a href="<%= @searchResults[num]["previewUrl"] %>">サンプル</a>
 					<form>
-						<input type="" value="" name="">
-						<input type="" value=""  name="">
-						<input type="" value="" name="">
-						<input type="" value="" name="">
-						<input type="" value="" name="">
 						<input type="" name="" placeholder="コメント">
 						<input type="submit" value="投稿">
 					</form>
 				</div>
+			<% end %>
+		
 		</div>
-
-	<%# TODO: 検索結果によって分岐 %>
-	<p>検索結果がありません</p>
+		<% end %>
 
 </section>
