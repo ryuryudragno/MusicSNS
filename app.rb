@@ -13,6 +13,10 @@ helpers do
     def current_user
         User.find_by(id: session[:user])#idがsession[:user]の人を1人だけ見つける
     end
+    
+    def like
+       Like.all 
+    end
 end
 
 before do
@@ -134,18 +138,11 @@ end
 
 
 
-post '/:post_id/like' do#いいね機能
-    date = params[:due_date].split('-')#String型のものを-できって配列にする
-    list = List.find(params[:list])
-    if Date.valid_date?(date[0].to_i,date[1].to_i,date[2].to_i)
-        current_user.tasks.create(
-            title: params[:title],
-            due_date: Date.parse(params[:due_date]),
-            list_id: list.id
-        )
-        redirect '/'
-    #Userクラスのインスタンス.tasks.create()であるユーザーの所属するtodoリストを作れる
-    else
-        redirect '/home'
-    end
+get '/:post_id/like' do#いいね機能
+    Like.create(
+        user_id: current_user.id,
+        post_id: params[:post_id]
+    )
+    
+    redirect '/'
 end

@@ -1,6 +1,6 @@
 <section class="first-view center-vertical">
-	<h1>MUSIC SNS!!!</h1>
 	<% if current_user.nil? %>
+		<h1>MUSIC SNS!!!</h1>
 		<div class="login_button">
 	        <form action = "/signin" method = "post" class = "">
 	            <div class = "controls">
@@ -14,7 +14,10 @@
 	            </div>
 	        </form>
 		</div>
+	<% else %>
+		<h1 style = "padding-top: 10%">MUSIC SNS!!!</h1>
 	<% end %>
+	
 </section>
 
 <section class="center-vertical mt-2">
@@ -33,10 +36,17 @@
 						<%#<a href="#">フォローする</a>
 						<a href="#">">フォロー解除</a><br>%>
 				</p>
-				<p>いいねしたユーザー<br>
-					<img src="" alt="user_image" width="40" height="40">
-				</p>
-				<a href="#">いいねする</a>
+				
+				<% unless like.where(post_id: _post.id).empty? %><%# このポストにライクが存在したら%>
+					<p>いいねしたユーザー</p>
+					<% like.where(post_id: _post.id).each do |_like| %>
+						<img src="<%=User.find_by(id: _like.user_id).img %>" alt="user_image" width="40" height="40">
+					<% end %>
+				<% end %>
+				
+				<a href="/<%= _post.id %>/like" class = "mt-2">いいねする</a>
+				
+		
 			</div>
 		<% end %>
 	<% end %>
