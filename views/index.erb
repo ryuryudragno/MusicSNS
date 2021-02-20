@@ -19,21 +19,27 @@
 
 <section class="center-vertical mt-2">
 	<h1>最新の投稿</h1>
+	
+	<% if Post.all===[] %>
+		<%# TODO: ここで分岐 %>
+		<p>投稿がありません</p>
+	<% else %>
+		<% Post.all.each do |_post| %>
+			<div class="post center-vertical">
+				<img src="<%= _post.img %>" width="125" height="125">
+				<p>artist: <%= _post.artist %></p>
+				<p>コメント: <%= _post.comment %></p>
+				<p>投稿者: <%=User.find_by(id: _post.user_id).name %><br>
+						<%#<a href="#">フォローする</a>
+						<a href="#">">フォロー解除</a><br>%>
+				</p>
+				<p>いいねしたユーザー<br>
+					<img src="" alt="user_image" width="40" height="40">
+				</p>
+				<a href="#">いいねする</a>
+			</div>
+		<% end %>
+	<% end %>
 
-	<div class="post center-vertical">
-		<img src="" width="125" height="125">
-		<p>artist: 〇〇</p>
-		<p>コメント: 〇〇</p>
-		<p>投稿者: 〇〇<br>
-				<a href="#">フォローする</a>
-				<a href="#">">フォロー解除</a><br>
-		</p>
-		<p>いいねしたユーザー<br>
-			<img src="" alt="user_image" width="40" height="40">
-		</p>
-		<a href="#">いいねする</a>
-	</div>
-
-	<%# TODO: ここで分岐 %>
-	<p>投稿がありません</p>
+	
 </section>

@@ -16,13 +16,16 @@
 			<%#<%= @searchResults[2]%>
 			<% for num in 0..@limits-1 do %>
 				<div class="post center-vertical">
+					<form action = "new" method = "post">
 					<img src="<%= @searchResults[num]["artworkUrl100"] %>">
 					<p><%= @searchResults[num]["artistName"] %></p>
 					<p><%= @searchResults[num]["collectionName"] %></p>
 					<p><%= @searchResults[num]["trackName"] %></p>
-					<a href="<%= @searchResults[num]["previewUrl"] %>">サンプル</a>
-					<form>
-						<input type="" name="" placeholder="コメント">
+					<a href="<%= @searchResults[num]["previewUrl"] %>">サンプル</a>
+						<input type="hidden" value="<%= @searchResults[num]["artworkUrl100"] %>" name="imgUrl">
+						<input type="hidden" value="<%= @searchResults[num]["artistName"] %>" name="artist">
+						<input type="hidden" value="<%= @searchResults[num]["previewUrl"] %>" name="musicUrl">
+						<input type="text" name="comment" placeholder="コメント">
 						<input type="submit" value="投稿">
 					</form>
 				</div>

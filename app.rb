@@ -48,7 +48,7 @@ post '/signup' do
         tempfile = img[:tempfile]
         upload = Cloudinary::Uploader.upload(tempfile.path)
         img_url = upload['url']
-	end
+	end#写真をCloudinaryにアップロード
     
     
     user = User.create(
@@ -104,10 +104,14 @@ end
 
 
 post '/new' do  #コメントを取得し投稿
-    task = Task.find(params[:id])
-    task.completed = true
-    task.save
-    #Userクラスのインスタンス.tasks.create()であるユーザーの所属するtodoリストを作れる
+    _post = Post.create(
+        user_id: current_user.id,
+        img: params[:imgUrl],
+        artist: params[:artist],
+        music: params[:musicUrl],
+        comment: params[:comment]
+    )
+    _post.save
     redirect '/home'
 end
 
