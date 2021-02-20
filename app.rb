@@ -99,6 +99,7 @@ get '/search' do #検索語からAPIでJSONを取得し必要なデータを格�
 end
 
 get '/home' do #ユーザー情報のページに飛ばす
+    @posts = Post.where(user_id: current_user.id)
     erb :home
 end
 
@@ -130,8 +131,10 @@ post '/:post_id/edit' do  #編集された値を受け取る機能
     redirect '/home'
 end
 
-post '/:post_id/delete'  do #投稿削除機能
-    @task = Task.find(params[:id])
+get '/:post_id/delete'  do #投稿削除機能
+    _post = Post.find(params[:post_id])
+    _post.destroy
+    # @posts = Post.where(user_id: current_user.id)
     redirect '/home'
 end
 

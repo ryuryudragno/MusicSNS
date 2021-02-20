@@ -1,15 +1,38 @@
-<section class="center-vertical">
-	<h1>〇〇の投稿</h1>
-	<p>投稿がありません</p>
+
+<section class="center-vertical mt-4">
+	<h1><%= current_user.name %>の投稿</h1>
+	<% if @posts===[] %>
+		<p>投稿がありません</p>
+	<% else %>
+		<% @posts.all.each do |_post| %>
+			<div class="post center-vertical">
+				<img src="<%= _post.img %>" width="125" height="125">
+				<p>artist: <%= _post.artist %></p>
+				
+				<a href="<%= _post.music %>">サンプル</a>
+				<p>コメント: <%= _post.comment %></p>
+				
+				<a href="<%= // %>">編集</a>
+				<a href="/<%= _post.id %>/delete">削除</a>
+				<!--<p>いいねしたユーザー<br>-->
+				<!--	<img src="" alt="user_image" width="40" height="40">-->
+				<!--</p>-->
+				<%= _post.id %>
+			</div>
+		<% end %>
+	
+	<% end %>
 </section>
 
+<%#
 <section class="center-vertical">
 	<h1>〇〇のイイねした投稿</h1>
 	<p>イイねがありません</p>
+	
 </section>
 
 
-<%#
+
 <section class="center-vertical">
 	<h1>〇〇 のフォロー</h1>
 	<a href="#">フォロー解除</a><br>
@@ -17,4 +40,4 @@
 
 <section class="center-vertical">
 	<h1>〇〇のフォロワー</h1>
-</section>
+</section>%>

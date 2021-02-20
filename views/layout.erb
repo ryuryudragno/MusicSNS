@@ -19,7 +19,7 @@
         <% if !current_user.nil? %>
             <%#<li>こんにちは,<%#<%= current_user.name %><%#さん</li>%>
             <% unless current_user.img.empty? %>
-                <li class = "d-inline"><a><img src = "<%= current_user.img %>" alt="user_image" width="40" height="40"></a></li>
+                <li class = "d-inline"><a href="/home"><img src = "<%= current_user.img %>" alt="user_image" width="40" height="40"></a></li>
             <% end %>
             <li class = "d-inline"><a href="/search">search</a></li>
             <li class = "d-inline"><a href = "/signout">logout</a></li>
