@@ -1,31 +1,8 @@
 <section class="center-vertical">
-	<h1>検索フォーム</h1>
-	<form>
-		<input type="" name="" placeholder="アーティスト名">
-		<input type="" value="検索">
+	<h1>コメントの更新</h1>
+
+	<form action = "/<%= @post.id %>/edit" method = "post">
+		<input type="text" name="comment" placeholder="<%= @post.comment %>">
+		<input type="submit" value="投稿">
 	</form>
-	<h2>検索結果</h2>
-
-		<div class="center-hrizontal">
-				<div class="post center-vertical">
-					<img src="">
-					<p>artistName表示</p>
-					<p>collectionName表示</p>
-					<p>trackName表示</p>
-					<a href="#">サンプル</a>
-					<form>
-						<input type="" value="" name="">
-						<input type="" value=""  name="">
-						<input type="" value="" name="">
-						<input type="" value="" name="">
-						<input type="" value="" name="">
-						<input type="" name="" placeholder="コメント">
-						<input type="submit" value="投稿">
-					</form>
-				</div>
-		</div>
-
-	<%# TODO: 検索結果によって分岐 %>
-	<p>検索結果がありません</p>
-
 </section>

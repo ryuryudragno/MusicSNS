@@ -24,11 +24,11 @@ before do
     end
 end
 
-# before '/tasks' do
-#     if current_user.nil?
-#         redirect '/'
-#     end#ログインしてない時にtodoを押すとtopページに戻るように
-# end
+before '/home,/search,/:post_id' do
+    if current_user.nil?
+        redirect '/'
+    end#ログインしてない時にtodoを押すとtopページに戻るように
+end
 
 get '/' do #最初のページ
 #ログインしてるかを判断し、それぞれに応じた値を格納
@@ -77,9 +77,6 @@ get '/signout' do #サインアウト
     redirect '/'
 end
 
-# get '/search' do #検索フォームと検索結果が表示されるページ
-#     erb :search
-# end
 
 get '/search' do #検索語からAPIでJSONを取得し必要なデータを格納する
     searchTerm = params[:searchTerm]
@@ -117,24 +114,21 @@ post '/new' do  #コメントを取得し投稿
 end
 
 get '/:post_id/edit' do #編集ページ機能
-    task = Task.find(params[:id])
-    task.star = !task.star
-    task.save
-    #Userクラスのインスタンス.tasks.create()であるユーザーの所属するtodoリストを作れる
-    redirect '/'
+    @post = Post.find(params[:post_id])
+    erb :edit
 end
 
 post '/:post_id/edit' do  #編集された値を受け取る機能
-    task = Task.find(params[:id])
-    task.destroy
-    #Userクラスのインスタンス.tasks.create()であるユーザーの所属するtodoリストを作れる
+    _post = Post.find(params[:post_id])
+    _post.comment = params[:comment]
+    _post.save
+    
     redirect '/home'
 end
 
 get '/:post_id/delete'  do #投稿削除機能
     _post = Post.find(params[:post_id])
     _post.destroy
-    # @posts = Post.where(user_id: current_user.id)
     redirect '/home'
 end
 

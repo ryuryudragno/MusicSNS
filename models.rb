@@ -9,12 +9,12 @@ end
 class User < ActiveRecord::Base#大文字の単数形(History)で定義
     has_secure_password
     
-    # validates :name,
-    #     presence: true,#空欄はだめ
-    #     format: {with:/\A\w+\z/}#
-    #     # format: {with:/.+@.+/}#@を含む必要がある
-    # validates :password,
-    #     length: {in: 5..10}#5文字以上10文字以下
+    validates :name,
+        presence: true,#空欄はだめ
+        format: {with:/\A\w+\z/}#
+        # format: {with:/.+@.+/}#@を含む必要がある
+    validates :password,
+        length: {in: 1..10}#5文字以上10文字以下
     
     has_many :posts#ユーザーが複数のtaskを持つ
 end
